@@ -1,0 +1,30 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Visualizer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="audioControls">
+    <h1 id="h1">Music Visualizer</h1>
+    <audio id="audioPlayer" controls>
+      <source id="sours" src="Murder Drones.m4a" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <ul id="trackList"></ul>
+  </div>
+
+
+
+<div id="divVis">
+  <canvas class="visualizer" id="visualizer" width="3200" height="1600"></canvas>
+  <canvas class="visualizer" id="visualizerMirror" width="3200" height="1600"></canvas>
+</div>
+  
+  <script src="visualizer.js"></script>
+</body>
+</html>
