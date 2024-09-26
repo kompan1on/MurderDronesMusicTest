@@ -4,20 +4,21 @@ body {
   color: #fff;
   height: 100vh;
   margin: 0;
-  justify-content: space-around;
 }
 #audioControls {
   display: flex;
   flex-direction: column;
   align-items: center; 
   height: 100%;
+  width: 35%;
 }
 #divVis {
-  width: 95%;
-  height: 95%;
+  width: 65%;
+  height: 100%;
   background-color: rgba(124, 10, 200, 0);
   display: flex;
   flex-direction: column;
+  transform: rotate(0deg);
 }
 .visualizer {
   width: 100%;
@@ -30,7 +31,7 @@ body {
   max-height: 85%;
   z-index: 5;
   padding: 0;
-  height: 85%;
+  height: 80%;
   margin: 0;
   list-style-type: none;
   overflow-y: auto;
@@ -38,6 +39,7 @@ body {
   width: 100%;
   border-top: rgba(124, 10, 200, 0.5) solid 0.2em;
   border-bottom: rgba(124, 10, 200, 0.5) solid 0.2em;
+  background-color: #000;
 }
 #trackList::-webkit-scrollbar {
   width: 0.2em;               /* Ширина вертикального скроллбара */
@@ -49,7 +51,8 @@ body {
 }
 li {
   display: flex;
-  height: 10%;
+  aspect-ratio: 6 / 1;
+  width: calc(100% - 0.2em);
   flex-direction: row-reverse;
   border: rgba(124, 10, 200, 0.5) solid 0.2em;
   border-top: none;
@@ -57,7 +60,7 @@ li {
   cursor: pointer;
 }
 img {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: auto 1 / 1;
   height: 100%;
 }
 .divLi {
@@ -73,5 +76,30 @@ img {
 #audioPlayer {
   z-index: 5;
   width: 80%;
-  height: 5%;
+  min-height: 5%;
+}
+
+
+
+
+
+@media screen and (max-aspect-ratio: 1 / 1) {
+  body {
+    flex-direction: column;
+  }
+  #audioControls {
+    height: 40%;
+    width: 100%;
+  }
+  li {
+    
+    height: 40%;
+  }
+  #divVis {
+    width: 100%;
+    height: 60%;
+  }
+  #trackList {
+
+  }
 }

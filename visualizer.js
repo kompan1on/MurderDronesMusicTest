@@ -303,7 +303,7 @@ window.onload = function() {
       canvasMirrorCtx.fillRect(x, -barHeight / 0.2, barWidth, barHeight / 0.1);
       canvasMirrorCtx.restore();
 
-      x += barWidth + 1;
+      x += barWidth + 0.6;
     }
   }
 
