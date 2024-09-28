@@ -1,30 +1,144 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Music Visualizer</title>
-  <link rel="stylesheet" href="style.css">
+  <link id="stylesheet" rel="stylesheet" href="style0.css">
+  <style>
+    body {
+    display: flex;
+    background-color: #000;
+    color: #fff;
+    height: 100vh;
+    margin: 0;
+}
+.base-block {
+    background-color: #000000;
+    position: fixed;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 15;
+}
+
+.dropdown-blocks {
+    position: fixed;
+    flex-direction: column;
+    transition: max-height 0.5s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 5.16em;
+    z-index: 15;
+}
+
+.dropdown-blocks .secondary-block {
+    background-color: #000000;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+}
+.dropdown-blocks .secondary-block, .base-block {
+    width: 5em;
+    height: 5em;
+    border-right: rgb(124, 10, 200) solid 0.2em;
+    border-bottom: rgb(124, 10, 200) solid 0.2em;
+}
+.show {
+    display: flex;
+    max-height: 50em;
+}
+.dropdown-blocks .secondary-block img, .base-block img {
+    height: 5em;
+    width: 5em;
+}
+
+.extra-blocks {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+}
+
+.extra-block {
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    display: flex;
+
+    color: white;
+}
+.visible {
+    display: flex;
+}
+
+.unvisible {
+    display: none;
+}
+  </style>
 </head>
 <body>
-  <div id="audioControls">
-    <h1 id="h1">Music Visualizer</h1>
-    <audio id="audioPlayer" controls>
-      <source id="sours" src="" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-    <ul id="trackList"></ul>
-  </div>
+    <div class="base-block" id="baseBlock" onclick="toggleDropdown()">Базовый</div>
 
+    <!-- Выпадающий список блоков -->
+    <div class="dropdown-blocks" id="dropdownBlocks">
+        <div class="secondary-block w1" id="1" onclick="replaceBaseBlock(this); setVisibility(1);"> <img src="Icons/icons8-сумка-для-покупок-100.png" alt="Картинка 1"></div>
+        <div class="secondary-block w2" id="2" onclick="replaceBaseBlock(this); setVisibility(2);"> <img src="Icons/icons8-youtube-is-an-american-video-sharing-and-now-google's-subsidiaries-100.png" alt="Картинка 2"></div>
+        <div class="secondary-block w3" id="3" onclick="replaceBaseBlock(this); setVisibility(3);"> <img src="Icons/icons8-нота-100.png" alt="Картинка 3"></div>
+        <div class="secondary-block w4" id="4" onclick="replaceBaseBlock(this); setVisibility(4);"> <img src="Icons/icons8-настройки-100.png" alt="Картинка 4"></div>
+        <div class="secondary-block w5" id="5" onclick="replaceBaseBlock(this); setVisibility(5);"> <img src="Icons/icons8-лист-100.png" alt="Картинка 5"></div>
+    </div>
+    
+    <!-- Дополнительные блоки на странице -->
+    <div class="extra-blocks">
+        <div class="extra-block 1 unvisible">1</div>
+        <div class="extra-block 2 unvisible">2</div>
+        <div class="extra-block 3 unvisible">
+            <div id="audioControls">
+                <audio id="audioPlayer">
+                  <source id="sours" src="" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                
+                <div class="controlsPC">
+                    <img id="playPauseBtn" class="play-pause" src="Icons/icons8-воспроизведение-100.png" alt="">
+                    <div id="timeInfo">00:00 / 00:00</div>
+                    <input id="seekBar" class="seek-bar" type="range" min="0" value="0" step="0.01">
+                    <input id="volumeSlider" class="volume-slider" type="range" min="0" max="1" step="0.01" value="1">
+                </div>
+                <div class="controlsPhone">
+                    <div class="controlPanelTop">
+                        <img id="playPauseBtn" class="play-pause" src="Icons/icons8-воспроизведение-100.png" alt="">
+                        <div id="timeInfo">00:00 / 00:00</div>
+                    </div>
+                    <div class="controlPanelBot">
+                        <div class="controlPanel">
+                        <input id="volumeSlider" class="volume-slider" type="range" min="0" max="1" step="0.01" value="1" orient="vertical">
+                        <input id="seekBar" class="seek-bar" type="range" min="0" value="0" step="0.01" orient="vertical">
+                        </div>
+                    </div>
+                    
 
-
-<div id="divVis">
-  <canvas class="visualizer" id="visualizer" width="3200" height="1300"></canvas>
-  <canvas class="visualizer" id="visualizerMirror" width="3200" height="1300"></canvas>
-</div>
-  
-  <script src="visualizer.js"></script>
+                </div>
+                
+                <ul id="trackList"></ul>
+            </div>
+            
+            
+            
+            <div id="divVis">
+              <canvas class="visualizer" id="visualizer" width="3200" height="1250"></canvas>
+              <canvas class="visualizer" id="visualizerMirror" width="3200" height="1250"></canvas>
+            </div>
+        </div>
+        <div class="extra-block 4 unvisible">4</div>
+        <div class="extra-block 5 unvisible">5</div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>

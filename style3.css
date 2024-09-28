@@ -1,0 +1,224 @@
+
+body {
+  display: flex;
+  background-color: #000;
+  color: #fff;
+  height: 100vh;
+  margin: 0;
+}
+#audioControls {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+#divVis {
+  width: calc(80% - 9em);
+  height: 90%;
+  background-color: rgba(124, 10, 200, 0);
+  display: flex;
+  flex-direction: column;
+  transform: rotate(0deg);
+  position: absolute;
+  top: 5.2em;
+  left: calc(20% + 9em);
+}
+.visualizer {
+  width: 100%;
+  height: 50%;
+  z-index: 0;
+  /* border: #ffffff solid; */
+}
+
+
+#trackList {
+  z-index: 5;
+  padding: 0;
+  height: 100%;
+  margin: 0;
+  list-style-type: none;
+  overflow-y: auto;
+  direction: rtl;
+  width: calc(20% + 9em);
+  border-top: rgba(124, 10, 200, 1) solid 0.2em;
+  border-bottom: rgba(124, 10, 200, 0.5) solid 0.2em;
+  background-color: #000;
+}
+#trackList::-webkit-scrollbar {
+  width: 0.2em;               /* Ширина вертикального скроллбара */
+  background-color: rgba(255, 255, 255, 0);  /* Фон скроллбара */
+}
+
+li {
+  display: flex;
+  /* aspect-ratio: 6 / 1; */
+  width: calc(100% - 0.2em);
+  height: 5em;
+  flex-direction: row-reverse;
+  border: rgb(124, 10, 200) solid 0.2em;
+  border-top: none;
+  border-left: none;
+  cursor: pointer;
+  color: rgb(124, 10, 200);
+}
+li img {
+  aspect-ratio: auto 1 / 1;
+  height: 100%;
+  border-right: rgb(124, 10, 200) 0.2em solid;
+}
+.divLi {
+  display: flex;
+  flex-direction: column;
+  justify-content:space-evenly;
+  align-items: end;
+  margin-left: 5%;
+}
+.volume-slider {
+  width: 10%;
+  margin: 0 ;
+  height: 100%;
+  padding-right: 3%;
+  padding-left: 3%;
+  transition: opacity 0.2s ease;
+  border-bottom: rgb(124, 10, 200) solid 0.2em;
+}
+.controls {
+  display: flex;
+  width: calc(100% - 5em);
+  margin-left: 5em;
+}
+
+.play-pause {
+  cursor: pointer;
+  background-color: #00000000;
+  color: white;
+  aspect-ratio: 1 / 1;
+  width: 5em;
+  border-right: rgb(124, 10, 200) solid 0.2em;
+}
+.w2 img{
+  size: 80%;
+}
+
+.seek-bar {
+  cursor: pointer;
+  width: calc(58% - 5em);
+  padding-left: 3%;
+  padding-right: 3%;
+  height: 100%;
+  margin: 0;
+  border-right: rgb(124, 10, 200) solid 0.2em;
+  border-bottom: rgb(124, 10, 200) solid 0.2em;
+}
+#timeInfo {
+  width: 20%;
+  border-right: rgb(124, 10, 200) solid 0.1em;
+  border-bottom: rgb(124, 10, 200) solid 0.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  color: rgb(124, 10, 200);
+  height: 100%;
+}
+input[type="range"] {
+  -webkit-appearance: none;
+  background: #ef000000;
+  outline: none;
+  transition: opacity 0.2s ease;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, rgba(124, 10, 200), rgba(124, 10, 200));
+  border-radius: 0;
+  height: 10%;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Убираем стандартный стиль */
+  appearance: none;
+  width: 0.5em; /* Ширина движка */
+  height: 2em; /* Высота движка */
+  background: rgba(124, 10, 200, 1); /* Цвет движка */
+  cursor: pointer;
+  margin-top: -0.6em;
+  border: #000 solid 0.1em;
+}
+.controlsPC {
+  display: flex;
+  width: calc(100% - 5em);
+  margin-left: 5em;
+}
+.controlsPhone {
+  display: none;
+}
+
+
+
+@media screen and (max-aspect-ratio: 1 / 1) {
+  body {
+    flex-direction: column;
+  }
+  #audioControls {
+    height: 50%;
+    width: 100%;
+  }
+  li {
+    
+    height: 40%;
+  }
+  #divVis {
+    width: 100%;
+    height: 40%;
+    top: 60%;
+    left: 0;
+  }
+#trackList2 {
+    display: none;
+  }
+  .controlsPC {
+    display: none;
+  }
+  .controlsPhone {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .controlPanelTop {
+    width: calc(100% - 5em);
+    height: 5em;
+    display: flex;
+    margin-left: 5em;
+  }
+  #timeInfo {
+    width: 100%;
+    border-bottom: rgb(124, 10, 200) solid 0.1em;
+    border-right: none;
+  }
+  .controlPanelBot {
+    height: calc(100% - 5em);
+    width: 100%;
+    display: flex;
+    border-right: rgb(124, 10, 200) 0.2em solid;
+  }
+  .volume-slider {
+    height: 100%;
+    width: 5em;
+    border: none;
+  }
+  .seek-bar {
+    width: 5em;
+    height: 100%;
+    border: none;
+  }
+  #trackList1 {
+    flex-direction: column;
+    width: calc(100% - 10em);
+  }
+  .controlPanel {
+    display: flex;
+    width: 10em;
+    height: 100%;
+  }
+}
