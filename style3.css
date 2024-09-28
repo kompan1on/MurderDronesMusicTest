@@ -40,7 +40,7 @@ body {
   list-style-type: none;
   overflow-y: auto;
   direction: rtl;
-  width: calc(20% + 9em);
+  width: calc(20% + 10em);
   border-top: rgba(124, 10, 200, 1) solid 0.2em;
   border-bottom: rgba(124, 10, 200, 0.5) solid 0.2em;
   background-color: #000;
@@ -75,7 +75,7 @@ li img {
   margin-left: 5%;
 }
 .volume-slider {
-  width: 10%;
+  width: 15%;
   margin: 0 ;
   padding-right: 3%;
   padding-left: 3%;
@@ -104,7 +104,7 @@ li img {
 
 .seek-bar {
   cursor: pointer;
-  width: calc(58% - 5em);
+  width: 85%;
   padding-left: 3%;
   padding-right: 3%;
   margin: 0;
@@ -112,7 +112,7 @@ li img {
   border-bottom: rgb(124, 10, 200) solid 0.2em;
 }
 #timeInfo {
-  width: 20%;
+  width: 100%;
   border-right: rgb(124, 10, 200) solid 0.1em;
   border-bottom: rgb(124, 10, 200) solid 0.1em;
   display: flex;
@@ -144,11 +144,18 @@ input[type="range"]::-webkit-slider-thumb {
 }
 .controlsPC {
   display: flex;
-  width: calc(100% - 5em);
+  width: 100%;
+
+}
+.controlPanelTop {
+  display: flex;
+  width: calc(20% + 5em);
   margin-left: 5em;
 }
-.controlsPhone {
-  display: none;
+.controlPanelBot {
+  height: 100%;
+  width: calc(80% - 10em);
+  display: flex;
 }
 
 
@@ -158,11 +165,11 @@ input[type="range"]::-webkit-slider-thumb {
     flex-direction: column;
   }
   #audioControls {
-    height: 50%;
+    height: 60%;
     width: 100%;
   }
   li {
-    
+    border-right: none;
     height: 5em;
   }
   #divVis {
@@ -172,7 +179,9 @@ input[type="range"]::-webkit-slider-thumb {
     left: 0;
   }
   .controlsPC {
-    display: none;
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
   }
   .controlsPhone {
     margin: 0;
@@ -196,6 +205,8 @@ input[type="range"]::-webkit-slider-thumb {
   .controlPanelBot {
     height: 5em;
     display: flex;
+    width: 100%;
+    flex-direction: row-reverse;
   }
   .volume-slider {
     width: 10em;
@@ -204,7 +215,7 @@ input[type="range"]::-webkit-slider-thumb {
     border-right: rgb(124, 10, 200) 0.2em solid;
   }
   .seek-bar {
-    border: none;
+    border-right: none;
     width: calc(100% - 14em);
     padding-left: 1em;
     padding-right: 1em;
