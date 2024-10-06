@@ -37,7 +37,7 @@ const audios = [
   'Music/Solver Uzi.m4a', 'Music/Gamer Mom.m4a', 'Music/YOURE FREAKIN GROUNDED.m4a', 
   'Music/Die Mad D.m4a', 'Music/Uzi and N_ The Drone Killers.m4a', 
   'Music/BITE ME (feat. Zephyrianna).m4a', 'Music/FOREVER.m4a', 'Music/DXRTYTYPE - Bedrock.mp3',
-  'Music/Molina Hey Kids (Feat. Late Verlane).mp3'
+  'Music/Molina Hey Kids (Feat. Late Verlane).mp3', 'Music/Unfunny Game Slowed.mp3', 'Music/Vinnie Dixie - Cyberpunk 2077.mp3'
 ];
 
 // Убираем "Music/" из каждой строки массива
