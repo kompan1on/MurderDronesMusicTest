@@ -1,0 +1,40 @@
+.settings {
+    width: calc(100%-5em);
+    margin-left: 5em;
+    height: 5em;
+    display: flex;
+    border-bottom: var(--main-bg-color) solid 0.2em;
+    align-items: center;
+}
+.BtnSett {
+    border-radius: 0;
+    margin-left: 6em;
+    margin-right: 0.5em;
+    width: 10em;
+    height: 4em;
+    border: none;
+    background-color: var(--main-bg-color);
+    padding: 0;
+
+}
+#colorPicker {
+    opacity: 0;
+    width: 4em;
+    height: 4em;
+    border-radius: 0;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+.color-overlay1 {
+    position: fixed;
+    width: 4em;
+    height: 4em;
+    background-color: var(--main-bg-color);
+    border-right: var(--main-bg-color) solid 0.2em;
+    border-bottom: var(--main-bg-color) solid 0.2em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}

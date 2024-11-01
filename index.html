@@ -6,6 +6,9 @@
   <title>Music Visualizer</title>
   <link id="stylesheet" rel="stylesheet" href="style0.css">
   <style>
+    :root {
+        --main-bg-color: rgba(124, 10, 200, 1);
+    }
     body {
     display: flex;
     background-color: #000;
@@ -46,8 +49,8 @@
 .dropdown-blocks .secondary-block, .base-block {
     width: 5em;
     height: 5em;
-    border-right: rgb(124, 10, 200) solid 0.2em;
-    border-bottom: rgb(124, 10, 200) solid 0.2em;
+    border-right: var(--main-bg-color) solid 0.2em;
+    border-bottom: var(--main-bg-color) solid 0.2em;
 }
 .show {
     display: flex;
@@ -64,7 +67,9 @@
     height: 100%;
     margin-top: 0;
 }
-
+.secondary-block {
+    position: relative;
+}
 .extra-block {
     width: 100%;
     height: 100%;
@@ -80,18 +85,39 @@
 .unvisible {
     display: none;
 }
+.image-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  #image {
+    width: 300px; /* Задайте нужный размер */
+    height: auto;
+  }
+  
+  .color-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5em;
+    height: 5em;
+    background-color: transparent;
+    mix-blend-mode: multiply; /* Наложение цвета на картинку */
+    pointer-events: none; /* Чтобы наложение не блокировало взаимодействие */
+    transition: background-color 0.3s;
+  } 
   </style>
 </head>
 <body>
-    <div class="base-block" id="baseBlock" onclick="toggleDropdown()">Базовый</div>
+    <div class="base-block" id="baseBlock" onclick="toggleDropdown()"><img id="BBImg" src=""><div class="color-overlay" id="colorOverlay"></div></div>
 
     <!-- Выпадающий список блоков -->
     <div class="dropdown-blocks" id="dropdownBlocks">
-        <div class="secondary-block w1" id="1" onclick="replaceBaseBlock(this); setVisibility(1);"> <img src="Icons/icons8-сумка-для-покупок-100.png" alt="Картинка 1"></div>
-        <div class="secondary-block w2" id="2" onclick="replaceBaseBlock(this); setVisibility(2);"> <img src="Icons/icons8-youtube-is-an-american-video-sharing-and-now-google's-subsidiaries-100.png" alt="Картинка 2"></div>
-        <div class="secondary-block w3" id="3" onclick="replaceBaseBlock(this); setVisibility(3);"> <img src="Icons/icons8-нота-100.png" alt="Картинка 3"></div>
-        <div class="secondary-block w4" id="4" onclick="replaceBaseBlock(this); setVisibility(4);"> <img src="Icons/icons8-настройки-100.png" alt="Картинка 4"></div>
-        <div class="secondary-block w5" id="5" onclick="replaceBaseBlock(this); setVisibility(5);"> <img src="Icons/icons8-лист-100.png" alt="Картинка 5"></div>
+        <div class="secondary-block w1" id="1"> <img id="1" onclick="replaceBaseBlock(this); setVisibility(1);" src="Icons/icons8-корзина-100.png" alt="Картинка 1"><div class="color-overlay" id="colorOverlay1"></div></div>
+        <div class="secondary-block w2" id="2"> <img id="2" onclick="replaceBaseBlock(this); setVisibility(2);" src="Icons/icons8-youtube-is-an-american-video-sharing-and-now-google's-subsidiaries-500.png" alt="Картинка 2"><div class="color-overlay" id="colorOverlay2"></div></div>
+        <div class="secondary-block w3" id="3"> <img id="3" onclick="replaceBaseBlock(this); setVisibility(3);" src="Icons/icons8-нота-512.png" alt="Картинка 3"><div class="color-overlay" id="colorOverlay3"></div></div>
+        <div class="secondary-block w4" id="4"> <img id="4" onclick="replaceBaseBlock(this); setVisibility(4);" src="Icons//icons8-настройки-480.png" alt="Картинка 4"><div class="color-overlay" id="colorOverlay4"></div></div>
+        <div class="secondary-block w5" id="5"> <img id="5" onclick="replaceBaseBlock(this); setVisibility(5);" src="Icons/icons8-лист-500.png" alt="Картинка 5"><div class="color-overlay" id="colorOverlay5"></div></div>
     </div>
     
     <!-- Дополнительные блоки на странице -->
@@ -108,6 +134,7 @@
                 <div class="controlsPC">
                     <div class="controlPanelTop">
                         <img id="playPauseBtn" class="play-pause" src="Icons/icons8-воспроизведение-100.png" alt="">
+                        <div class="color-overlay" id="colorOverlay6"></div>
                         <div id="timeInfo">00:00 / 00:00</div>
                     </div>
                     
@@ -128,7 +155,16 @@
               <canvas class="visualizer" id="visualizerMirror" width="3200" height="1250"></canvas>
             </div>
         </div>
-        <div class="extra-block 4 unvisible">4</div>
+        <div class="extra-block 4 unvisible">
+            <div class="settings">
+                <div class="color-overlay1" id="colorOverlay"><input type="color" id="colorPicker" value="#ff0000"></div>
+                <button class="BtnSett" onclick="applyFilter()">Применить цветовой фильтр</button>
+            </div>
+    
+            
+
+
+        </div>
         <div class="extra-block 5 unvisible">5</div>
     </div>
     <script src="script.js"></script>

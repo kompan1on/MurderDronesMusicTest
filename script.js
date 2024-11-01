@@ -5,8 +5,8 @@ function toggleDropdown() {
 
 // Функция для замены базового блока на вторичный
 function replaceBaseBlock(secondaryBlock) {
-    var baseBlock = document.getElementById("baseBlock");
-    baseBlock.innerHTML = secondaryBlock.innerHTML;
+    var baseBlock = document.getElementById("BBImg");
+    baseBlock.src = secondaryBlock.src;
     baseBlock.style.backgroundColor = secondaryBlock.style.backgroundColor;
     toggleDropdown(); // Закрываем список
 }
@@ -37,7 +37,9 @@ const audios = [
   'Music/Solver Uzi.m4a', 'Music/Gamer Mom.m4a', 'Music/YOURE FREAKIN GROUNDED.m4a', 
   'Music/Die Mad D.m4a', 'Music/Uzi and N_ The Drone Killers.m4a', 
   'Music/BITE ME (feat. Zephyrianna).m4a', 'Music/FOREVER.m4a', 'Music/DXRTYTYPE - Bedrock.mp3',
-  'Music/Molina Hey Kids (Feat. Late Verlane).mp3', 'Music/Unfunny Game Slowed.mp3', 'Music/Vinnie Dixie - Cyberpunk 2077.mp3'
+  'Music/Molina Hey Kids (Feat. Late Verlane).mp3', 'Music/Unfunny Game Slowed.mp3', 'Music/Vinnie Dixie - Cyberpunk 2077.mp3',
+  'Music/Salvi, Franklin Dam - Calabria.mp3', 'Music/Yomoti - Before Chill.mp3', 'Music/Spiderbait - Black Betty.mp3', 'Music/Sadfriendd Luga - 5star.mp3',
+  'Music/PollmixaN - Серый человек.mp3', 'Music/Ado - Odo.mp3'
 ];
 
 // Убираем "Music/" из каждой строки массива
@@ -108,7 +110,7 @@ function createTrackList() {
     
       // Начинаем воспроизведение
       audioPlayer.play().then(() => {
-        playPauseBtn.src = `Icons/icons8-пауза-100 (1).png`;
+        playPauseBtn.src = `Icons/icons8-пауза-100.png`;
       }).catch(error => {
         console.error('Ошибка воспроизведения аудио:', error);
       });
@@ -140,60 +142,83 @@ function formatTime(timeInSeconds) {
     const canvasMirror = document.getElementById('visualizerMirror');
     const canvasCtx = canvas.getContext('2d');
     const canvasMirrorCtx = canvasMirror.getContext('2d');
-  
+    const colorPicker = document.getElementById('colorPicker');
+
+    // Начальные значения цвета
+    let red = 124;
+    let green = 10;
+    let blue = 200;
+
+    // Аудиоконтекст и анализатор
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const analyser = audioContext.createAnalyser();
     const source = audioContext.createMediaElementSource(audio);
-  
+
     source.connect(analyser);
     analyser.connect(audioContext.destination);
-  
-    analyser.fftSize = 2048 ;
-    // 32 64 128 256 512 1024 2048 4096 8192 16384 32768
+
+    analyser.fftSize = 2048;
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
-  
+
+    // Обновляем цвет визуализации при выборе нового цвета
+    colorPicker.addEventListener('input', () => {
+        const hexColor = colorPicker.value;
+        const rgbColor = hexToRgb(hexColor);
+        red = rgbColor.r;
+        green = rgbColor.g;
+        blue = rgbColor.b;
+    });
+
     function draw() {
-      requestAnimationFrame(draw);
-  
-      analyser.getByteFrequencyData(dataArray);
-  
-      canvasCtx.fillStyle = 'rgb(0, 0, 0)';
-      canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      canvasMirrorCtx.fillStyle = 'rgb(0, 0, 0)';
-      canvasMirrorCtx.fillRect(0, 0, canvasMirror.width, canvasMirror.height);
-  
-      const barWidth = (canvas.width / bufferLength) * 1;
-      let barHeight;
-      let x = 0;
-  
-      for (let i = 0; i < bufferLength; i++) {
-        barHeight = dataArray[i];
-  
-        const red = 124;
-        const green = 10;
-        const blue = 200;
-  
-        canvasCtx.fillStyle = `rgb(${red},${green},${blue})`;
-        canvasCtx.fillRect(x, canvas.height - barHeight / 0.2, barWidth, barHeight / 0.1);
-  
-        // Зеркальный канвас: меняем вертикальное направление
-        canvasMirrorCtx.save();
-        canvasMirrorCtx.scale(1, -1);  // Отзеркаливаем по вертикали
-        canvasMirrorCtx.fillStyle = `rgb(${red},${green},${blue})`;
-        canvasMirrorCtx.fillRect(x, -barHeight / 0.2, barWidth, barHeight / 0.1);
-        canvasMirrorCtx.restore();
-  
-        x += barWidth + 0.6;
-      }
+        requestAnimationFrame(draw);
+
+        analyser.getByteFrequencyData(dataArray);
+
+        canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+        canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+        canvasMirrorCtx.fillStyle = 'rgb(0, 0, 0)';
+        canvasMirrorCtx.fillRect(0, 0, canvasMirror.width, canvasMirror.height);
+
+        const barWidth = (canvas.width / bufferLength) * 1;
+        let barHeight;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+            barHeight = dataArray[i];
+
+            // Применяем выбранный цвет
+            canvasCtx.fillStyle = `rgb(${red},${green},${blue})`;
+            canvasCtx.fillRect(x, canvas.height - barHeight / 0.2, barWidth, barHeight / 0.1);
+
+            // Зеркальный канвас: меняем вертикальное направление
+            canvasMirrorCtx.save();
+            canvasMirrorCtx.scale(1, -1); // Отзеркаливаем по вертикали
+            canvasMirrorCtx.fillStyle = `rgb(${red},${green},${blue})`;
+            canvasMirrorCtx.fillRect(x, -barHeight / 0.2, barWidth, barHeight / 0.1);
+            canvasMirrorCtx.restore();
+
+            x += barWidth + 0.6;
+        }
     }
-  
+
+    // Воспроизведение и начало визуализации
     audio.onplay = function() {
-      audioContext.resume();
-      draw();
+        audioContext.resume();
+        draw();
     };
-  };
+
+    // Преобразование HEX в RGB
+    function hexToRgb(hex) {
+        const bigint = parseInt(hex.slice(1), 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return { r, g, b };
+    }
+};
+
   
 
 const styles = ['style0.css','style1.css', 'style2.css', 'style3.css', 'style4.css', 'style5.css']; // Массив с путями к стилям
@@ -248,7 +273,7 @@ document.getElementById('5').addEventListener('click', function () {
     playPauseBtn.addEventListener('click', function() {
         if (audioPlayer.paused) {
             audioPlayer.play();
-            playPauseBtn.src = `Icons/icons8-пауза-100 (1).png`;
+            playPauseBtn.src = `Icons/icons8-пауза-100.png`;
         } else {
             audioPlayer.pause();
             playPauseBtn.src = `Icons/icons8-воспроизведение-100.png`;
@@ -291,3 +316,55 @@ document.getElementById('5').addEventListener('click', function () {
         timeInfo.textContent = `00:00 / ${formatTimeForPlay(Math.floor(audioPlayer.duration / 60), Math.floor(audioPlayer.duration % 60))}`;
     });
     
+    document.addEventListener("DOMContentLoaded", () => {
+      // Устанавливаем начальный цвет в colorPicker и накладываем его
+      const initialColor = "#7C0AC8"; // HEX-код для RGB(124, 10, 200)
+      document.getElementById("colorPicker").value = initialColor;
+  
+      // Применяем начальный цвет как фильтр
+      applyFilter();
+  });
+  
+  function applyFilter() {
+      const colorPicker = document.getElementById("colorPicker");
+      const selectedColor = colorPicker.value; // Получаем выбранный цвет
+  
+      // Устанавливаем выбранный цвет как фоновый для наложения
+      const colorOverlay1 = document.getElementById("colorOverlay1");
+      colorOverlay1.style.backgroundColor = selectedColor;
+      const colorOverlay2 = document.getElementById("colorOverlay2");
+      colorOverlay2.style.backgroundColor = selectedColor;
+      const colorOverlay3 = document.getElementById("colorOverlay3");
+      colorOverlay3.style.backgroundColor = selectedColor;
+      const colorOverlay4 = document.getElementById("colorOverlay4");
+      colorOverlay4.style.backgroundColor = selectedColor;
+      const colorOverlay5 = document.getElementById("colorOverlay5");
+      colorOverlay5.style.backgroundColor = selectedColor;
+      const colorOverlay6 = document.getElementById("colorOverlay6");
+      colorOverlay6.style.backgroundColor = selectedColor;
+      const baseBlock = document.getElementById("colorOverlay");
+      baseBlock.style.backgroundColor = selectedColor;
+      document.documentElement.style.setProperty('--main-bg-color', selectedColor);
+      updateCanvasColor("visualizer", selectedColor);
+      updateCanvasColor("visualizerMirror", selectedColor);
+  }
+
+function updateCanvasColor(canvasId, color) {
+    const canvas = document.getElementById(canvasId);
+    const canvasCtx = canvas.getContext("2d");
+
+    // Преобразуем HEX в RGB
+    const rgb = hexToRgb(color);
+
+    // Очищаем холст и заливаем новым цветом
+    canvasCtx.fillStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+}
+
+// Функция для преобразования HEX-кода в RGB
+function hexToRgb(hex) {
+    const bigint = parseInt(hex.slice(1), 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return { r, g, b };
+} 
