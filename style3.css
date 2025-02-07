@@ -1,7 +1,7 @@
 
 body {
   display: flex;
-  background-color: #000;
+  background-color: var(--main-bg-color);;
   color: #fff;
   height: 100vh;
   margin: 0;
@@ -43,9 +43,9 @@ body {
   overflow-y: auto;
   direction: rtl;
   width: calc(20% + 10em);
-  border-top: var(--main-bg-color) solid 0.2em;
-  border-bottom: var(--main-bg-color) solid 0.2em;
-  background-color: #000;
+  border-top: var(--main-line-color) solid 0.2em;
+  border-bottom: var(--main-line-color) solid 0.2em;
+  background-color: var(--main-bg-color);;
 }
 #trackList::-webkit-scrollbar {
   width: 0.2em;               /* Ширина вертикального скроллбара */
@@ -58,16 +58,16 @@ li {
   width: calc(100% - 0.2em);
   height: 5em;
   flex-direction: row-reverse;
-  border: var(--main-bg-color) solid 0.2em;
+  border: var(--main-line-color) solid 0.2em;
   border-top: none;
   border-left: none;
   cursor: pointer;
-  color: var(--main-bg-color);
+  color: var(--main-line-color);
 }
 li img {
   aspect-ratio: auto 1 / 1;
   height: 100%;
-  border-right: var(--main-bg-color) 0.2em solid;
+  border-right: var(--main-line-color) 0.2em solid;
 }
 .divLi {
   display: flex;
@@ -82,7 +82,7 @@ li img {
   padding-right: 3%;
   padding-left: 3%;
   transition: opacity 0.2s ease;
-  border-bottom: var(--main-bg-color) solid 0.2em;
+  border-bottom: var(--main-line-color) solid 0.2em;
 }
 .controls {
   display: flex;
@@ -92,12 +92,12 @@ li img {
 
 .play-pause {
   cursor: pointer;
-  background-color: #00000000;
+  background-color: var(--main-bg-color);;
   color: white;
   aspect-ratio: 1 / 1;
   width: 5em;
-  border-right: var(--main-bg-color) solid 0.2em;
-  border-bottom: var(--main-bg-color) solid 0.2em;
+  border-right: var(--main-line-color) solid 0.2em;
+  border-bottom: var(--main-line-color) solid 0.2em;
   height: 5em;
 }
 .w2 img{
@@ -110,18 +110,18 @@ li img {
   padding-left: 3%;
   padding-right: 3%;
   margin: 0;
-  border-right: var(--main-bg-color) solid 0.2em;
-  border-bottom: var(--main-bg-color) solid 0.2em;
+  border-right: var(--main-line-color) solid 0.2em;
+  border-bottom: var(--main-line-color) solid 0.2em;
 }
 #timeInfo {
   width: 100%;
-  border-right: var(--main-bg-color) solid 0.1em;
-  border-bottom: var(--main-bg-color) solid 0.1em;
+  border-right: var(--main-line-color) solid 0.1em;
+  border-bottom: var(--main-line-color) solid 0.1em;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2em;
-  color: var(--main-bg-color);
+  color: var(--main-line-color);
 }
 input[type="range"] {
   -webkit-appearance: none;
@@ -130,7 +130,7 @@ input[type="range"] {
   transition: opacity 0.2s ease;
 }
 input[type="range"]::-webkit-slider-runnable-track {
-  background: linear-gradient(to right, var(--main-bg-color), var(--main-bg-color));
+  background: linear-gradient(to right, var(--main-line-color), var(--main-line-color));
   border-radius: 0;
   height: 10%;
 }
@@ -139,10 +139,10 @@ input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   width: 0.5em; /* Ширина движка */
   height: 2em; /* Высота движка */
-  background: var(--main-bg-color); /* Цвет движка */
+  background: var(--main-line-color); /* Цвет движка */
   cursor: pointer;
   margin-top: -0.6em;
-  border: #000 solid 0.1em;
+  border: var(--main-bg-color) solid 0.1em;
 }
 .controlsPC {
   display: flex;
@@ -200,7 +200,7 @@ input[type="range"]::-webkit-slider-thumb {
   }
   #timeInfo {
     width: 100%;
-    border-bottom: var(--main-bg-color) solid 0.1em;
+    border-bottom: var(--main-line-color) solid 0.1em;
     border-right: none;
     height: 100%;
   }
@@ -214,7 +214,7 @@ input[type="range"]::-webkit-slider-thumb {
     width: 10em;
     padding-left: 1em;
     padding-right: 1em;
-    border-right: var(--main-bg-color) 0.2em solid;
+    border-right: var(--main-line-color) 0.2em solid;
   }
   .seek-bar {
     border-right: none;

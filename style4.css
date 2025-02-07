@@ -1,11 +1,12 @@
-.settings {
+.SColor, .SBGColor {
     width: calc(100%-5em);
     margin-left: 5em;
     height: 5em;
     display: flex;
-    border-bottom: var(--main-bg-color) solid 0.2em;
-    align-items: center;
+    border-bottom: var(--main-line-color) solid 0.2em;
+
 }
+
 .BtnSett {
     border-radius: 0;
     margin-left: 6em;
@@ -13,14 +14,14 @@
     width: 10em;
     height: 4em;
     border: none;
-    background-color: var(--main-bg-color);
+    background-color: var(--main-line-color);
     padding: 0;
-
+    margin-top: 0.9em;
 }
-#colorPicker {
+#colorPicker, #BGcolorPicker{
     opacity: 0;
     width: 4em;
-    height: 4em;
+    height: 2em;
     border-radius: 0;
     border: none;
     padding: 0;
@@ -28,13 +29,17 @@
     margin-left: 0.5em;
     margin-right: 0.5em;
 }
-.color-overlay1 {
+.color-overlay1, .BGcolor-overlay1 {
     position: fixed;
     width: 4em;
-    height: 4em;
-    background-color: var(--main-bg-color);
-    border-right: var(--main-bg-color) solid 0.2em;
-    border-bottom: var(--main-bg-color) solid 0.2em;
+    height: 2em;
+    background-color: var(--main-line-color);
+    border: var(--main-line-color) solid 0.2em;
     margin-left: 0.5em;
     margin-right: 0.5em;
+    margin-top: 0.3em;
+}
+.BGcolor-overlay1 {
+    margin-top: 2.3em;
+    background-color: var(--main-bg-color);
 }

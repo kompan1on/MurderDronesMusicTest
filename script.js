@@ -29,18 +29,59 @@ function setVisibility(selectedClass) {
     });
 }
 
-const audios = [
-  'Music/Murder Drones.m4a', 'Music/UZI THE DRONE KILLER.m4a', 'Music/The Plot.m4a', 
-  'Music/The Plot 2_ This Time Its Personal.m4a', 'Music/Click.m4a', 
-  'Music/Murder Brings (Trailer Theme).m4a', 'Music/Get Prommed _3.m4a', 
-  'Music/The Knife Dance.m4a', 'Music/OST - Disassembly Required.m4a', 
-  'Music/Solver Uzi.m4a', 'Music/Gamer Mom.m4a', 'Music/YOURE FREAKIN GROUNDED.m4a', 
-  'Music/Die Mad D.m4a', 'Music/Uzi and N_ The Drone Killers.m4a', 
-  'Music/BITE ME (feat. Zephyrianna).m4a', 'Music/FOREVER.m4a', 'Music/DXRTYTYPE - Bedrock.mp3',
-  'Music/Molina Hey Kids (Feat. Late Verlane).mp3', 'Music/Unfunny Game Slowed.mp3', 'Music/Vinnie Dixie - Cyberpunk 2077.mp3',
-  'Music/Salvi, Franklin Dam - Calabria.mp3', 'Music/Yomoti - Before Chill.mp3', 'Music/Spiderbait - Black Betty.mp3', 'Music/Sadfriendd Luga - 5star.mp3',
-  'Music/PollmixaN - Серый человек.mp3', 'Music/Ado - Odo.mp3'
+
+let audios = [
+    "Music/Ado - Odo.mp3",
+    "Music/BITE ME (feat. Zephyrianna).m4a",
+    "Music/Click.m4a",
+    "Music/Die Mad D.m4a",
+    "Music/DXRTYTYPE - Bedrock.mp3",
+    "Music/FOREVER.m4a",
+    "Music/Gamer Mom.m4a",
+    "Music/Get Prommed _3.m4a",
+    "Music/higanbanban - Override.mp3",
+    "Music/Inst.ogg",
+    "Music/Molina Hey Kids (Feat. Late Verlane).mp3",
+    "Music/Murder Brings (Trailer Theme).m4a",
+    "Music/Murder Drones.m4a",
+    "Music/OST - Disassembly Required.m4a",
+    "Music/PollmixaN - Серый человек.mp3",
+    "Music/Sadfriendd Luga - 5star.mp3",
+    "Music/Salvi, Franklin Dam - Calabria.mp3",
+    "Music/Solver Uzi.m4a",
+    "Music/Spiderbait - Black Betty.mp3",
+    "Music/The Knife Dance.m4a",
+    "Music/The Plot 2_ This Time Its Personal.m4a",
+    "Music/The Plot.m4a",
+    "Music/Unfunny Game Slowed.mp3",
+    "Music/Uzi and N_ The Drone Killers.m4a",
+    "Music/UZI THE DRONE KILLER.m4a",
+    "Music/Vinnie Dixie - Cyberpunk 2077.mp3",
+    "Music/Voices.ogg",
+    "Music/Yomoti - Before Chill.mp3",
+    "Music/YOURE FREAKIN GROUNDED.m4a",
+    "Music/Zachz Winner - doodle Slowed.mp3",
 ];
+
+
+
+
+
+
+
+// const audios = [
+//   'Music/Murder Drones.m4a', 'Music/UZI THE DRONE KILLER.m4a', 'Music/The Plot.m4a', 
+//   'Music/The Plot 2_ This Time Its Personal.m4a', 'Music/Click.m4a', 
+//   'Music/Murder Brings (Trailer Theme).m4a', 'Music/Get Prommed _3.m4a', 
+//   'Music/The Knife Dance.m4a', 'Music/OST - Disassembly Required.m4a', 
+//   'Music/Solver Uzi.m4a', 'Music/Gamer Mom.m4a', 'Music/YOURE FREAKIN GROUNDED.m4a', 
+//   'Music/Die Mad D.m4a', 'Music/Uzi and N_ The Drone Killers.m4a', 
+//   'Music/BITE ME (feat. Zephyrianna).m4a', 'Music/FOREVER.m4a', 'Music/DXRTYTYPE - Bedrock.mp3',
+//   'Music/Molina Hey Kids (Feat. Late Verlane).mp3', 'Music/Unfunny Game Slowed.mp3', 'Music/Vinnie Dixie - Cyberpunk 2077.mp3',
+//   'Music/Salvi, Franklin Dam - Calabria.mp3', 'Music/Yomoti - Before Chill.mp3', 'Music/Spiderbait - Black Betty.mp3', 'Music/Sadfriendd Luga - 5star.mp3',
+//   'Music/PollmixaN - Серый человек.mp3', 'Music/Ado - Odo.mp3', 'Music/higanbanban - Override.mp3',
+//   'Music/Zachz Winner - doodle Slowed.mp3', "Music/Voices.ogg", 'Music/Inst.ogg'
+// ];
 
 // Убираем "Music/" из каждой строки массива
 const cleanAudios = audios.map(audio => audio.replace('Music/', ''));
@@ -57,7 +98,9 @@ function getTrackName(fileName) {
     return fileName.replace('.flac', '');
   } else if (fileName.endsWith('.aac')) {
     return fileName.replace('.aac', '');
-  } else {
+  } else if (fileName.endsWith('.ogg')) {
+    return fileName.replace('.ogg', '');
+  }else {
     return fileName;
   }
 }
@@ -125,13 +168,6 @@ function formatTime(timeInSeconds) {
   const seconds = Math.floor(timeInSeconds % 60);
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
-
-  
-  function formatTime(timeInSeconds) {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = Math.floor(timeInSeconds % 60);
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  }
   
   window.addEventListener('DOMContentLoaded', createTrackList);
   
@@ -316,10 +352,17 @@ document.getElementById('5').addEventListener('click', function () {
         timeInfo.textContent = `00:00 / ${formatTimeForPlay(Math.floor(audioPlayer.duration / 60), Math.floor(audioPlayer.duration % 60))}`;
     });
     
+
+
+
+
+    
     document.addEventListener("DOMContentLoaded", () => {
       // Устанавливаем начальный цвет в colorPicker и накладываем его
-      const initialColor = "#7C0AC8"; // HEX-код для RGB(124, 10, 200)
-      document.getElementById("colorPicker").value = initialColor;
+      const initialLineColor = "#7C0AC8";
+      const initialBGColor = "#000000"; // HEX-код для RGB(124, 10, 200)
+      document.getElementById("colorPicker").value = initialLineColor;
+      document.getElementById("BGcolorPicker").value = initialBGColor;
   
       // Применяем начальный цвет как фильтр
       applyFilter();
@@ -327,7 +370,9 @@ document.getElementById('5').addEventListener('click', function () {
   
   function applyFilter() {
       const colorPicker = document.getElementById("colorPicker");
+      const BGcolorPicker = document.getElementById("BGcolorPicker");
       const selectedColor = colorPicker.value; // Получаем выбранный цвет
+      const selectedBGColor = BGcolorPicker.value; // Получаем выбранный цвет
   
       // Устанавливаем выбранный цвет как фоновый для наложения
       const colorOverlay1 = document.getElementById("colorOverlay1");
@@ -344,27 +389,8 @@ document.getElementById('5').addEventListener('click', function () {
       colorOverlay6.style.backgroundColor = selectedColor;
       const baseBlock = document.getElementById("colorOverlay");
       baseBlock.style.backgroundColor = selectedColor;
-      document.documentElement.style.setProperty('--main-bg-color', selectedColor);
-      updateCanvasColor("visualizer", selectedColor);
-      updateCanvasColor("visualizerMirror", selectedColor);
+
+      
+      document.documentElement.style.setProperty('--main-line-color', selectedColor);
+      document.documentElement.style.setProperty('--main-bg-color', selectedBGColor);
   }
-
-function updateCanvasColor(canvasId, color) {
-    const canvas = document.getElementById(canvasId);
-    const canvasCtx = canvas.getContext("2d");
-
-    // Преобразуем HEX в RGB
-    const rgb = hexToRgb(color);
-
-    // Очищаем холст и заливаем новым цветом
-    canvasCtx.fillStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
-}
-
-// Функция для преобразования HEX-кода в RGB
-function hexToRgb(hex) {
-    const bigint = parseInt(hex.slice(1), 16);
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-    return { r, g, b };
-} 

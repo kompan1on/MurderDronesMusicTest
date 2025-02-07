@@ -5,19 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Music Visualizer</title>
   <link id="stylesheet" rel="stylesheet" href="style0.css">
+
   <style>
     :root {
-        --main-bg-color: rgba(124, 10, 200, 1);
+        --main-line-color: rgba(124, 10, 200, 1);
+        --main-bg-color: rgba(0, 0, 0, 1)
     }
     body {
     display: flex;
-    background-color: #000;
+    background-color: var(--main-bg-color);
     color: #fff;
     height: 100vh;
     margin: 0;
 }
 .base-block {
-    background-color: #000000;
+    background-color: var(--main-bg-color);
     position: fixed;
     cursor: pointer;
     display: flex;
@@ -38,7 +40,7 @@
 }
 
 .dropdown-blocks .secondary-block {
-    background-color: #000000;
+    background-color: var(--main-bg-color);
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -49,8 +51,8 @@
 .dropdown-blocks .secondary-block, .base-block {
     width: 5em;
     height: 5em;
-    border-right: var(--main-bg-color) solid 0.2em;
-    border-bottom: var(--main-bg-color) solid 0.2em;
+    border-right: var(--main-line-color) solid 0.2em;
+    border-bottom: var(--main-line-color) solid 0.2em;
 }
 .show {
     display: flex;
@@ -73,7 +75,7 @@
 .extra-block {
     width: 100%;
     height: 100%;
-    background-color: #000000;
+    background-color: var(--main-bg-color);
     display: flex;
     flex-direction: column;
     color: white;
@@ -136,7 +138,7 @@
                         <img id="playPauseBtn" class="play-pause" src="Icons/icons8-воспроизведение-100.png" alt="">
                         <div class="color-overlay" id="colorOverlay6"></div>
                         <div id="timeInfo">00:00 / 00:00</div>
-                    </div>
+                    </div> 
                     
                     <div class="controlPanelBot">
                         <input id="seekBar" class="seek-bar" type="range" min="0" value="0" step="0.01">
@@ -156,10 +158,12 @@
             </div>
         </div>
         <div class="extra-block 4 unvisible">
-            <div class="settings">
+            <div class="SColor">
                 <div class="color-overlay1" id="colorOverlay"><input type="color" id="colorPicker" value="#ff0000"></div>
+                <div class="BGcolor-overlay1" id="BGcolorOverlay"><input type="color" id="BGcolorPicker" value="#000000"></div>
                 <button class="BtnSett" onclick="applyFilter()">Применить цветовой фильтр</button>
             </div>
+
     
             
 
