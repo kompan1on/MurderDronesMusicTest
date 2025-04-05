@@ -34,6 +34,7 @@ let audios = [
     "Music/Ado - Odo.mp3",
     "Music/BITE ME (feat. Zephyrianna).m4a",
     "Music/Click.m4a",
+    "Music/CYBERPUNK 2077 SOUNDTRACK - WHO'S READY FOR TOMORROW by Rat Boy & IBDY (Official Video).m4a",
     "Music/Die Mad D.m4a",
     "Music/DXRTYTYPE - Bedrock.mp3",
     "Music/FOREVER.m4a",
@@ -41,6 +42,7 @@ let audios = [
     "Music/Get Prommed _3.m4a",
     "Music/higanbanban - Override.mp3",
     "Music/Inst.ogg",
+    "Music/Life Letters.m4a",
     "Music/Molina Hey Kids (Feat. Late Verlane).mp3",
     "Music/Murder Brings (Trailer Theme).m4a",
     "Music/Murder Drones.m4a",
@@ -50,6 +52,8 @@ let audios = [
     "Music/Salvi, Franklin Dam - Calabria.mp3",
     "Music/Solver Uzi.m4a",
     "Music/Spiderbait - Black Betty.mp3",
+    "Music/StayedGone.m4a",
+    "Music/The Dark Scientist - Lunziestella.m4a",
     "Music/The Knife Dance.m4a",
     "Music/The Plot 2_ This Time Its Personal.m4a",
     "Music/The Plot.m4a",
@@ -104,20 +108,42 @@ function getTrackName(fileName) {
     return fileName;
   }
 }
+const likes = [
+
+];
 
 // Функция для создания списка треков
 function createTrackList() {
   const trackList = document.getElementById('trackList');
 
-  // Используем cleanAudios вместо audios
   cleanAudios.forEach((audio, index) => {
+    const svgNamespace = "http://www.w3.org/2000/svg";
     const li = document.createElement('li');
+    li.setAttribute("data-track", `data-track-${index + 1}`);
     const img = document.createElement('img');
     img.src = `Icons/${getTrackName(audio)}.png`;
     img.alt = `Cover for ${getTrackName(audio)}`;
-
     const trackName = document.createElement('span');
     trackName.textContent = getTrackName(audio);
+    
+    // Контейнер для лайка
+    const divLikes = document.createElement('div');
+    divLikes.classList.add("divLikes");
+    divLikes.setAttribute("data-track", `track-item-${index + 1}`);
+
+    // SVG иконка лайка
+    const trackFollow1 = document.createElementNS(svgNamespace, 'svg');
+    trackFollow1.setAttribute("width", "24");
+    trackFollow1.setAttribute("height", "24");
+    trackFollow1.setAttribute("viewBox", "0 0 24 24");
+
+    const trackFollow2 = document.createElementNS(svgNamespace, 'svg');
+    trackFollow2.setAttribute("width", "24");
+    trackFollow2.setAttribute("height", "24");
+    trackFollow2.setAttribute("viewBox", "0 0 24 24");
+    trackFollow2.classList.add("opasityHeart")
+    divLikes.appendChild(trackFollow1);
+    divLikes.appendChild(trackFollow2);
 
     const div1 = document.createElement('div');
     div1.classList.add('divLi');
@@ -126,40 +152,68 @@ function createTrackList() {
     trackDuration.classList.add('duration');
     trackDuration.textContent = 'Loading...';
 
-    // Загружаем метаданные без загрузки самого трека
+    // Загружаем метаданные трека
     const audioElement = new Audio(`Music/${audio}`);
-    audioElement.preload = 'metadata'; // Загружаем только метаданные
+    audioElement.preload = 'metadata'; 
     audioElement.addEventListener('loadedmetadata', () => {
-      const duration = formatTime(audioElement.duration);
-      trackDuration.textContent = duration; // Обновляем длительность трека
+      trackDuration.textContent = formatTime(audioElement.duration);
     });
 
     li.appendChild(img);
     li.appendChild(div1);
+    li.appendChild(divLikes);
     div1.appendChild(trackName);
     div1.appendChild(trackDuration);
 
-    // Логика загрузки аудиофайла только при клике
+    // Клик для воспроизведения трека
     li.addEventListener('click', () => {
-      const Aud = document.getElementById('sours'); // Источник аудио
-      const audioPlayer = document.getElementById('audioPlayer'); // Аудиоэлемент
+      const Aud = document.getElementById('sours');
+      const audioPlayer = document.getElementById('audioPlayer');
       const playPauseBtn = document.getElementById('playPauseBtn');
       
-      // Устанавливаем путь к аудиофайлу
       Aud.src = `Music/${audio}`;
-      
-      // Загружаем новый аудиофайл
       audioPlayer.load();
     
-      // Начинаем воспроизведение
       audioPlayer.play().then(() => {
         playPauseBtn.src = `Icons/icons8-пауза-100.png`;
       }).catch(error => {
         console.error('Ошибка воспроизведения аудио:', error);
       });
     });
+
+    // Обработчик лайков
+    divLikes.addEventListener('click', (event) => {
+      event.stopPropagation(); // Чтобы не срабатывал клик по li
+      toggleLike(event.currentTarget);
+    });
+
     trackList.appendChild(li);
   });
+}
+
+
+function toggleLike(element) {
+  const track = element.getAttribute('data-track');
+  const svgIcon = element.querySelector('svg');
+
+  if (!likes.includes(track)) {
+    likes.push(track);
+    element.classList.add('liked');
+    svgIcon.classList.add('animate-like');
+  } 
+  else {
+    likes.splice(likes.indexOf(track), 1);
+    element.classList.remove('liked');
+    svgIcon.classList.remove('animate-like');
+  }
+
+  // Добавляем класс анимации
+  // svgIcon.classList.add('animate-like');
+  // Удаляем класс после завершения анимации
+  // svgIcon.addEventListener('animationend', () => {
+  //   svgIcon.classList.remove('animate-like');
+  // }, { once: true });
+  console.log('Лайкнутые треки:', likes);
 }
 
 // Функция для форматирования времени
@@ -193,7 +247,7 @@ function formatTime(timeInSeconds) {
     source.connect(analyser);
     analyser.connect(audioContext.destination);
 
-    analyser.fftSize = 2048;
+    analyser.fftSize = 512 * 4 ;
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
@@ -217,7 +271,7 @@ function formatTime(timeInSeconds) {
         canvasMirrorCtx.fillStyle = 'rgb(0, 0, 0)';
         canvasMirrorCtx.fillRect(0, 0, canvasMirror.width, canvasMirror.height);
 
-        const barWidth = (canvas.width / bufferLength) * 1;
+        const barWidth = (canvas.width / bufferLength) * 1.18;
         let barHeight;
         let x = 0;
 
@@ -235,7 +289,7 @@ function formatTime(timeInSeconds) {
             canvasMirrorCtx.fillRect(x, -barHeight / 0.2, barWidth, barHeight / 0.1);
             canvasMirrorCtx.restore();
 
-            x += barWidth + 0.6;
+            x += barWidth ;//+ 0.6
         }
     }
 
@@ -389,7 +443,6 @@ document.getElementById('5').addEventListener('click', function () {
       colorOverlay6.style.backgroundColor = selectedColor;
       const baseBlock = document.getElementById("colorOverlay");
       baseBlock.style.backgroundColor = selectedColor;
-
       
       document.documentElement.style.setProperty('--main-line-color', selectedColor);
       document.documentElement.style.setProperty('--main-bg-color', selectedBGColor);
